@@ -52,7 +52,9 @@ export function unRegisterAllDevListeners() {
 
 export type DeviceDpValue = boolean | number | string;
 export type DeviceDps = {
-  [dpId: string]: DeviceDpValue;
+  command: {
+    [dpId: string]: DeviceDpValue;
+  }
 };
 export type SendParams = {
   devId: string;
