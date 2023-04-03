@@ -105,6 +105,22 @@ RCT_EXPORT_METHOD(loginWithValidateCode:(NSDictionary *)params resolver:(RCTProm
 }
 
 /*
+* Create a "Tourist" anonymous user account in Tuya which can be managed behind the scenes
+*/
+RCT_EXPORT_METHOD(registerAnonymousAccount:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
+
+  NSString *countryCode = @"44"; // The UK. Hardcoded for now but may need to be dynamic
+  NSString *username = [UIDevice currentDevice].name;  // The device name.
+  [[TuyaSmartUser sharedInstance] registerAnonymousWithCountryCode:countryCode
+                                                        userName:username
+                                                          success:^{
+    [TuyaRNUtils resolverWithHandler:resolver];
+  } failure:^(NSError *error) {
+    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+  }];
+}
+
+/*
 * 注册手机密码账户
 * @param countryCode 国家区号
 * @param phone       手机密码
