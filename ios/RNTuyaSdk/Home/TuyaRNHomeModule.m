@@ -40,7 +40,7 @@ RCT_EXPORT_METHOD(getHomeDetail:(NSDictionary *)params resolver:(RCTPromiseResol
 
   self.currentHome = [self smartHomeWithParams:params];
 
-  [self.currentHome getHomeDetailWithSuccess:^(TuyaSmartHomeModel *homeModel) {
+  [self.currentHome getHomeDataWithSuccess:^(TuyaSmartHomeModel *homeModel) {
     TuyaSmartHome *newHome = [TuyaSmartHome homeWithHomeId:homeModel.homeId];
 
     NSMutableDictionary *homeDic = [[NSMutableDictionary alloc] init];
@@ -175,7 +175,7 @@ RCT_EXPORT_METHOD(queryRoomList:(NSDictionary *)params resolver:(RCTPromiseResol
   self.currentHome = [self smartHomeWithParams:params];
 
   //获取详情获取：
-  [self.currentHome getHomeDetailWithSuccess:^(TuyaSmartHomeModel *homeModel) {
+  [self.currentHome getHomeDataWithSuccess:^(TuyaSmartHomeModel *homeModel) {
     if (self.currentHome.roomList.count == 0) {
       if (resolver) {
         resolver(@[]);
