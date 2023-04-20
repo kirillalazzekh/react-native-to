@@ -16,5 +16,6 @@ Pod::Spec.new do |s|
   s.source_files  = "ios/**/*.{h,m}"
 
   s.dependency 'React'
-  s.dependency 'TuyaSmartHomeKit', '>= 4.0.0'
+  s.dependency 'ThingSmartHomeKit', '>= 5.0.0'
+
 end

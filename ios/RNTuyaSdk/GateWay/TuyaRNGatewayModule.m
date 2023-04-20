@@ -10,10 +10,10 @@
 
 @implementation TuyaRNGatewayModule
 
-RCT_EXPORT_MODULE(TuyaGatewayModule)
+RCT_EXPORT_MODULE(ThingGatewayModule)
 
 RCT_EXPORT_METHOD(initWithOptions:(NSDictionary *)params) {
-  
+
 }
 
 @end

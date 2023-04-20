@@ -7,14 +7,14 @@
 //
 
 #import "TuyaRNGroupListener.h"
-#import <TuyaSmartDeviceKit/TuyaSmartShareDeviceModel.h>
-#import <TuyaSmartDeviceKit/TuyaSmartGroup+DpCode.h>
+#import <ThingSmartDeviceKit/ThingSmartShareDeviceModel.h>
+#import <ThingSmartDeviceKit/ThingSmartGroup+DpCode.h>
 #import <YYModel/YYModel.h>
 #import "TuyaRNEventEmitter.h"
 
-@interface TuyaRNGroupListener()<TuyaSmartGroupDelegate>
+@interface TuyaRNGroupListener()<ThingSmartGroupDelegate>
 
-@property (nonatomic, strong) NSMutableArray<TuyaSmartGroup *> *listenGroupArr;
+@property (nonatomic, strong) NSMutableArray<ThingSmartGroup *> *listenGroupArr;
 @end
 
 @implementation TuyaRNGroupListener
@@ -36,10 +36,10 @@
   return self;
 }
 
-+ (void)registerGroup:(TuyaSmartGroup *)group {
++ (void)registerGroup:(ThingSmartGroup *)group {
 
   __block BOOL exist = NO;
-  [[TuyaRNGroupListener shareInstance].listenGroupArr enumerateObjectsUsingBlock:^(TuyaSmartGroup * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+  [[TuyaRNGroupListener shareInstance].listenGroupArr enumerateObjectsUsingBlock:^(ThingSmartGroup * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
     if ([obj.groupModel.groupId isEqualToString:group.groupModel.groupId]) {
       exist = YES;
       *stop = YES;
@@ -55,8 +55,8 @@
   }
 }
 
-+ (void)removeDevice:(TuyaSmartGroup *)group {
-  [[[TuyaRNGroupListener shareInstance].listenGroupArr mutableCopy] enumerateObjectsUsingBlock:^(TuyaSmartGroup * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
++ (void)removeDevice:(ThingSmartGroup *)group {
+  [[[TuyaRNGroupListener shareInstance].listenGroupArr mutableCopy] enumerateObjectsUsingBlock:^(ThingSmartGroup * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
     if ([obj.groupModel.groupId isEqualToString:group.groupModel.groupId]) {
       obj.delegate = nil;
       [[TuyaRNGroupListener shareInstance].listenGroupArr removeObject:obj];
@@ -67,9 +67,9 @@
 
 
 #pragma mark -
-#pragma mark - TuyaSmartGroupDelegate
+#pragma mark - ThingSmartGroupDelegate
 /// 群组dp数据更新
-- (void)group:(TuyaSmartGroup *)group dpsUpdate:(NSDictionary *)dps {
+- (void)group:(ThingSmartGroup *)group dpsUpdate:(NSDictionary *)dps {
   NSDictionary *dic = @{
                         @"devId": group.groupModel.groupId,
                         @"dps": dps,
@@ -80,7 +80,7 @@
 }
 
 /// 群组信息更新
-- (void)groupInfoUpdate:(TuyaSmartGroup *)group {
+- (void)groupInfoUpdate:(ThingSmartGroup *)group {
 
     NSDictionary *dic = @{
                         @"id": group.groupModel.groupId,
@@ -91,7 +91,7 @@
 }
 
 /// 群组移除
-- (void)groupRemove:(TuyaSmartGroup *)group {
+- (void)groupRemove:(ThingSmartGroup *)group {
   NSDictionary *dic = @{
                         @"id": group.groupModel.groupId,
                         @"type": @"onGroupRemoved"
@@ -102,7 +102,7 @@
 
 ///// zigbee 设备加入到网关群组响应
 ///// 1:超过场景数上限 2:子设备超时 3:设置值超出范围 4:写文件错误 5:其他错误
-//- (void)group:(TuyaSmartGroup *)group addResponseCode:(NSArray <NSNumber *>*)responseCode {
+//- (void)group:(ThingSmartGroup *)group addResponseCode:(NSArray <NSNumber *>*)responseCode {
 //  NSDictionary *dic = @{
 //                        @"id": group.groupModel.groupId,
 //                        @"type": @"onGroupRemoved"
@@ -112,7 +112,7 @@
 //
 ///// zigbee 设备从网关群组移除响应
 ///// 1:超过场景数上限 2:子设备超时 3:设置值超出范围 4:写文件错误 5:其他错误
-//- (void)group:(TuyaSmartGroup *)group removeResponseCode:(NSArray <NSNumber *>*)responseCode {
+//- (void)group:(ThingSmartGroup *)group removeResponseCode:(NSArray <NSNumber *>*)responseCode {
 //  NSDictionary *dic = @{
 //                        @"id": group.groupModel.groupId,
 //                        @"type": @"onGroupRemoved"
