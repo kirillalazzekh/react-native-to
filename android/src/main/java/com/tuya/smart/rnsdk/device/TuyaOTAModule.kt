@@ -1,14 +1,14 @@
 package com.tuya.smart.rnsdk.device
 
 import com.facebook.react.bridge.*
-import com.tuya.smart.home.sdk.TuyaHomeSdk
-import com.tuya.smart.sdk.api.IGetOtaInfoCallback
-import com.tuya.smart.android.device.bean.UpgradeInfoBean
+import com.thingclips.smart.home.sdk.ThingHomeSdk
+import com.thingclips.smart.sdk.api.IGetOtaInfoCallback
+import com.thingclips.smart.android.device.bean.UpgradeInfoBean
 import com.tuya.smart.rnsdk.utils.*
 import com.tuya.smart.rnsdk.utils.Constant.DEVID
-import com.tuya.smart.sdk.api.IOtaListener
-import com.tuya.smart.sdk.api.ITuyaOta
-import com.tuya.smart.sdk.bean.OTAErrorMessageBean
+import com.thingclips.smart.sdk.api.IOtaListener
+import com.thingclips.smart.sdk.api.IThingOta
+import com.thingclips.smart.sdk.bean.OTAErrorMessageBean
 
 
 class TuyaOTAModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
@@ -16,7 +16,7 @@ class TuyaOTAModule(reactContext: ReactApplicationContext) : ReactContextBaseJav
        return "TuyaOTAModule"
     }
 
-    var iTuyaOta:ITuyaOta?=null
+    var IThingOta:IThingOta?=null
     /* 获取固件升级信息 */
     @ReactMethod
     fun getOtaInfo(params: ReadableMap,promise: Promise) {
@@ -37,8 +37,8 @@ class TuyaOTAModule(reactContext: ReactApplicationContext) : ReactContextBaseJav
     @ReactMethod
     fun startOta(params: ReadableMap) {
         if (ReactParamsCheck.checkParams(arrayOf(DEVID), params)) {
-            iTuyaOta = getIoat(params.getString(DEVID) as String)
-            iTuyaOta?.setOtaListener(object : IOtaListener {
+            IThingOta = getIoat(params.getString(DEVID) as String)
+            IThingOta?.setOtaListener(object : IOtaListener {
                 override fun onSuccess(otaType: Int) {
                     var map=Arguments.createMap();
                     map.putInt("otaType",otaType)
@@ -75,14 +75,14 @@ class TuyaOTAModule(reactContext: ReactApplicationContext) : ReactContextBaseJav
                     BridgeUtils.hardwareUpgradeListener(reactApplicationContext,map,params.getString(DEVID) as String)
                 }
             })
-            iTuyaOta?.startOta()
+            IThingOta?.startOta()
         }
     }
     @ReactMethod
     fun onDestroy(){
-        iTuyaOta?.onDestroy()
+        IThingOta?.onDestroy()
     }
-    fun getIoat(devId:String): ITuyaOta {
-        return TuyaHomeSdk.newOTAInstance(devId)
+    fun getIoat(devId:String): IThingOta {
+        return ThingHomeSdk.newOTAInstance(devId)
     }
 }
