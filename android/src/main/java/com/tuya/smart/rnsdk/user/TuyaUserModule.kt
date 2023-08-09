@@ -119,6 +119,14 @@ class TuyaUserModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
         }
     }
 
+    @ReactMethod
+    fun registerAnonymousAccount(params: ReadableMap, promise: Promise)
+    {
+      ThingHomeSdk.getUserInstance().touristRegisterAndLogin(
+          params.getString(COUNTRYCODE), getRegisterCallback(promise)
+      )
+    }
+
 
     /* 邮箱密码注册 */
     @ReactMethod
