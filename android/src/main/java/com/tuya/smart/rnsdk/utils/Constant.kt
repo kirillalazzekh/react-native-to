@@ -20,6 +20,7 @@ object Constant {
     const val API_REQUEST_ERROR = "api request error"
 
     const val COUNTRYCODE = "countryCode"
+    const val NICKNAME = "nickName"
     const val EMAIL = "email"
     const val PHONENUMBER = "phoneNumber"
     const val VALIDATECODE = "validateCode"

@@ -13,6 +13,7 @@
 #import "YYModel.h"
 
 #define kTuyaRNUserModuleCountryCode @"countryCode"
+#define kTuyaRNUserModuleNickName @"nickName"
 #define kTuyaRNUserModulePhoneNumber @"phoneNumber"
 #define kTuyaRNUserModulePhone @"phone"
 #define kTuyaRNUserModuleValidateType @"validateType"
@@ -107,10 +108,10 @@ RCT_EXPORT_METHOD(loginWithValidateCode:(NSDictionary *)params resolver:(RCTProm
 /*
 * Create a "Tourist" anonymous user account in Tuya which can be managed behind the scenes
 */
-RCT_EXPORT_METHOD(registerAnonymousAccount:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
+RCT_EXPORT_METHOD(registerAnonymousAccount:(NSDictionary *)params resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
+  NSString *countryCode = params[kTuyaRNUserModuleCountryCode];
+  NSString *username = params[kTuyaRNUserModuleNickName];
 
-  NSString *countryCode = @"44"; // The UK. Hardcoded for now but may need to be dynamic
-  NSString *username = [UIDevice currentDevice].name;  // The device name.
   [[ThingSmartUser sharedInstance] registerAnonymousWithCountryCode:countryCode
                                                         userName:username
                                                           success:^{
