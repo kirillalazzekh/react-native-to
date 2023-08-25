@@ -25,6 +25,7 @@ import com.tuya.smart.rnsdk.utils.ReactParamsCheck
 import com.tuya.smart.rnsdk.utils.TuyaReactUtils
 import com.thingclips.smart.sdk.enums.TempUnitEnum
 import java.io.File
+import android.provider.Settings
 
 class TuyaUserModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
 
@@ -122,10 +123,8 @@ class TuyaUserModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
     @ReactMethod
     fun registerAnonymousAccount(promise: Promise)
     {
-      let countryCode =  "44"
-      let userName = Settings.Secure.getString(reactApplicationContext.contentResolver, Settings.Secure.ANDROID_ID)
       ThingHomeSdk.getUserInstance().touristRegisterAndLogin(
-          countryCode, userName, getRegisterCallback(promise)
+          "44", Settings.Secure.getString(reactApplicationContext.contentResolver, Settings.Secure.ANDROID_ID), getRegisterCallback(promise)
       )
     }
 
