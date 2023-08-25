@@ -8,7 +8,6 @@ import com.tuya.smart.rnsdk.utils.Constant
 import com.tuya.smart.rnsdk.utils.Constant.ACCESSTOKEN
 import com.tuya.smart.rnsdk.utils.Constant.CODE
 import com.tuya.smart.rnsdk.utils.Constant.COUNTRYCODE
-import com.tuya.smart.rnsdk.utils.Constant.NICKNAME
 import com.tuya.smart.rnsdk.utils.Constant.EMAIL
 import com.tuya.smart.rnsdk.utils.Constant.FILEPATH
 import com.tuya.smart.rnsdk.utils.Constant.KEY
@@ -124,9 +123,7 @@ class TuyaUserModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
     fun registerAnonymousAccount(params: ReadableMap, promise: Promise)
     {
       ThingHomeSdk.getUserInstance().touristRegisterAndLogin(
-          params.getString(COUNTRYCODE),
-          params.getString(NICKNAME),
-          getRegisterCallback(promise)
+          params.getString(COUNTRYCODE), getRegisterCallback(promise)
       )
     }
 

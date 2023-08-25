@@ -2,10 +2,8 @@ import { NativeModules } from 'react-native';
 
 const tuya = NativeModules.TuyaUserModule;
 
-export function registerAnonymousAccount(
-  params: RegisterAnonymousAccountParams
-): Promise<any> {
-  return tuya.registerAnonymousAccount(params);
+export function registerAnonymousAccount(): Promise<String> {
+  return tuya.registerAnonymousAccount();
 }
 
 export function registerAccountWithEmail(
@@ -62,11 +60,6 @@ export type User = {
   nickName: string;
   phoneCode: string;
 };
-
-export type RegisterAnonymousAccountParams = {
-  countryCode: string;
-  nickName: string;
-}
 
 export type RegisterAccountWithEmailParams = {
   countryCode: string;
