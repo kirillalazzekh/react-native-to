@@ -120,10 +120,12 @@ class TuyaUserModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
     }
 
     @ReactMethod
-    fun registerAnonymousAccount(params: ReadableMap, promise: Promise)
+    fun registerAnonymousAccount(promise: Promise)
     {
+      let countryCode =  "44"
+      let userName = Settings.Secure.getString(reactApplicationContext.contentResolver, Settings.Secure.ANDROID_ID)
       ThingHomeSdk.getUserInstance().touristRegisterAndLogin(
-          params.getString(COUNTRYCODE), getRegisterCallback(promise)
+          countryCode, userName, getRegisterCallback(promise)
       )
     }
 
